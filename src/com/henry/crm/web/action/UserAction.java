@@ -1,7 +1,10 @@
 package com.henry.crm.web.action;
 
+import org.apache.struts2.ServletActionContext;
+
 import com.henry.crm.domain.User;
 import com.henry.crm.service.UserService;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 /**
@@ -29,5 +32,23 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 	public String regist() {
 		userService.regist(user);
 		return LOGIN;
+	}
+	
+	/*
+	 * 用户登录的方法：login
+	 */
+	public String login() {
+		// 调用业务层查询用户
+		User existUser = userService.login(user);
+		if(existUser == null) {
+			// 登录失败，添加错误信息
+			this.addActionError("用户名或密码错误！");
+			return LOGIN;			
+		}else {
+			// 登录成功，把用户信息存入Session中
+			// ServletActionContext.getRequest().getSession().getAttribute("existUser", existUser);
+			ActionContext.getContext().getSession().put("existUser", existUser);
+			return SUCCESS;
+		}
 	}
 }

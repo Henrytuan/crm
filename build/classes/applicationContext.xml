@@ -43,22 +43,51 @@
 		<property name="mappingResources">
 			<list>
 				<value>com/henry/crm/domain/User.hbm.xml</value>
+				<value>com/henry/crm/domain/Customer.hbm.xml</value>
+				<value>com/henry/crm/domain/BaseDictionary.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
 	
+	<!-- ==== 用户模块 ==== -->
 	<!-- ==== Action ==== -->
 	<bean id="userAction" class="com.henry.crm.web.action.UserAction" scope="prototype">
 		<property name="userService" ref="userService"/>
 	</bean>
-	
 	<!-- ==== Service ==== -->
 	<bean id="userService" class="com.henry.crm.service.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"/>
 	</bean>
-	
 	<!-- ==== DAO ==== -->
 	<bean id="userDao" class="com.henry.crm.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- ==== 客户模块 ==== -->
+	<!-- ==== Action ==== -->
+	<bean id="customerAction" class="com.henry.crm.web.action.CustomerAction" scope="prototype">
+		<property name="customerService" ref="customerService"/>
+	</bean>
+	<!-- ==== Service ==== -->
+	<bean id="customerService" class="com.henry.crm.service.impl.CustomerServiceImpl">
+		<property name="customerDao" ref="customerDao"/>
+	</bean>
+	<!-- ==== DAO ==== -->	
+	<bean id="customerDao" class="com.henry.crm.dao.impl.CustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- ==== 字典管理的相关类 ==== -->
+	<!-- ==== Action ==== -->
+	<bean id="baseDictionaryAction" class="com.henry.crm.web.action.BaseDictionaryAction"  scope="prototype">
+		<property name="baseDictionaryService" ref="baseDictionaryService"/>
+	</bean>
+	<!-- ==== Service ==== -->
+	<bean id="baseDictionaryService" class="com.henry.crm.service.impl.BaseDictionaryServiceImpl">
+		<property name="baseDictionaryDao" ref="baseDictionaryDao"/>
+	</bean>
+	<!-- ==== DAO ==== -->	
+	<bean id="baseDictionaryDao" class="com.henry.crm.dao.impl.BaseDictionaryDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
