@@ -1,9 +1,5 @@
 package com.henry.crm.dao;
 
-import java.util.List;
-
-import org.hibernate.criterion.DetachedCriteria;
-
 import com.henry.crm.domain.Customer;
 
 /**
@@ -11,12 +7,6 @@ import com.henry.crm.domain.Customer;
  * @author HenryTuan
  *
  */
-public interface CustomerDao {
-
-	void save(Customer customer);
-
-	Integer findCount(DetachedCriteria detachedCriteria);
-
-	List<Customer> findByPage(DetachedCriteria detachedCriteria, Integer begin, Integer pageSize);
+public interface CustomerDao extends BaseDao<Customer> {
 
 }

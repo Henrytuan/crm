@@ -7,9 +7,7 @@ import com.henry.crm.domain.User;
  * @author HenryTuan
  *
  */
-public interface UserDao {
-
-	void save(User user);
+public interface UserDao extends BaseDao<User> {
 
 	User login(User user);
 

@@ -2,8 +2,6 @@ package com.henry.crm.dao.impl;
 
 import java.util.List;
 
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
-
 import com.henry.crm.dao.BaseDictionaryDao;
 import com.henry.crm.domain.BaseDictionary;
 /**
@@ -11,7 +9,7 @@ import com.henry.crm.domain.BaseDictionary;
  * @author HenryTuan
  *
  */
-public class BaseDictionaryDaoImpl extends HibernateDaoSupport implements BaseDictionaryDao {
+public class BaseDictionaryDaoImpl extends BaseDaoImpl<BaseDictionary> implements BaseDictionaryDao {
 
 	@SuppressWarnings("unchecked")
 	@Override

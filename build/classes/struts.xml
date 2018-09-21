@@ -6,6 +6,8 @@
 <struts>
 	<!-- 配置Struts2的常量 -->
 	<constant name="struts.action.extension" value="action"/>
+	<!-- 配置struts2一个表单中所上传的文件的总大小，默认2M -->
+	<constant name="struts.multipart.maxSize" value="5242880"></constant>
 	
 	<package name="crm" extends="struts-default" namespace="/">
 		<!-- 用户管理的Action -->
@@ -17,9 +19,28 @@
 		<action name="customer_*" class="customerAction" method="{1}">
 			<result name="saveUI">/jsp/customer/add.jsp</result>
 			<result name="findAll">/jsp/customer/list.jsp</result>
+			<result name="editSuccess">/jsp/customer/edit.jsp</result>
+			<result name="savaSuccess" type="redirectAction">customer_findAll.action</result>
+			<result name="deleteSuccess" type="redirectAction">customer_findAll.action</result>
+			<result name="updateSuccess" type="redirectAction">customer_findAll.action</result>
+			<result name="input">/jsp/customer/add.jsp</result>
+			<!-- 配置单个上传文件的大小和格式 -->
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.maximumSize">2097152</param>
+				<param name="fileUpload.allowedExtensions">.jpg,.jpeg,.bmp</param>
+			</interceptor-ref>
 		</action>
 		<!-- 字典查询的Action -->
 		<action name="baseDictionary_*" class="baseDictionaryAction" method="{1}">
+		</action>
+		<!-- 联系人管理的Action -->
+		<action name="linkMan_*" class="linkManAction" method="{1}">
+			<result name="findAll">/jsp/linkman/list.jsp</result>
+			<result name="saveUI">/jsp/linkman/add.jsp</result>
+			<result name="editSuccess">/jsp/linkman/edit.jsp</result>
+			<result name="saveSuccess" type="redirectAction">linkMan_findAll.action</result>
+			<result name="updateSuccess" type="redirectAction">linkMan_findAll.action</result>
+			<result name="deleteSuccess" type="redirectAction">linkMan_findAll.action</result>
 		</action>
 	</package>
 

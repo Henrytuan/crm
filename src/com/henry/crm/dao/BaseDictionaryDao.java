@@ -9,7 +9,7 @@ import com.henry.crm.domain.BaseDictionary;
  * @author HenryTuan
  *
  */
-public interface BaseDictionaryDao {
+public interface BaseDictionaryDao extends BaseDao<BaseDictionary> {
 
 	List<BaseDictionary> findByTypeCode(String dict_type_code);
 

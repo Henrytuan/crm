@@ -1,4 +1,8 @@
 package com.henry.crm.domain;
+
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 客户管理的实体类
  * @author HenryTuan
@@ -22,11 +26,21 @@ public class Customer {
 	private String cust_level;*/
 	private String cust_phone;
 	private String cust_mobile;
+	private String cust_image;
 	
+	public String getCust_image() {
+		return cust_image;
+	}
+	public void setCust_image(String cust_image) {
+		this.cust_image = cust_image;
+	}
 	// 客户和字典表是多对一：需要在多的一方放的是一的一方的对象
 	private BaseDictionary baseDictionarySource;
 	private BaseDictionary baseDictionaryIndustry;
 	private BaseDictionary baseDictionaryLevel;
+	
+	// 一个客户有多个联系人
+	private Set<LinkMan> linkMans = new HashSet<LinkMan>();
 	
 	public Long getCust_id() {
 		return cust_id;
@@ -71,5 +85,10 @@ public class Customer {
 	public void setBaseDictionaryLevel(BaseDictionary baseDictionaryLevel) {
 		this.baseDictionaryLevel = baseDictionaryLevel;
 	}
-	
+	public Set<LinkMan> getLinkMans() {
+		return linkMans;
+	}
+	public void setLinkMans(Set<LinkMan> linkMans) {
+		this.linkMans = linkMans;
+	}
 }

@@ -45,6 +45,7 @@
 				<value>com/henry/crm/domain/User.hbm.xml</value>
 				<value>com/henry/crm/domain/Customer.hbm.xml</value>
 				<value>com/henry/crm/domain/BaseDictionary.hbm.xml</value>
+				<value>com/henry/crm/domain/LinkMan.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -88,6 +89,21 @@
 	</bean>
 	<!-- ==== DAO ==== -->	
 	<bean id="baseDictionaryDao" class="com.henry.crm.dao.impl.BaseDictionaryDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 配置联系人相关的类 -->
+	<!-- ==== Action ==== -->
+	<bean id="linkManAction" class="com.henry.crm.web.action.LinkManAction" scope="prototype">
+		<property name="linkManService" ref="linkManService"/>
+		<property name="customerService" ref="customerService"/>
+	</bean>
+	<!-- ==== Service ==== -->
+	<bean id="linkManService" class="com.henry.crm.service.impl.LinkManServiceImpl">
+		<property name="linkManDao" ref="linkManDao" />
+	</bean>
+	<!-- ==== DAO ==== -->	
+	<bean id="linkManDao" class="com.henry.crm.dao.impl.LinkManDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	

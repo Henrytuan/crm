@@ -1,6 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,7 +9,30 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// 页面加载，异步查询字典数据
+		$.post("${pageContext.request.contextPath}/baseDictionary_findByTypeCode.action",{"dict_type_code":"002"}, function(data){
+			$(data).each(function(i,n){
+				$("#cust_source").append("<option value='"+n.dict_id+"'>"+n.dict_item_name+"</option>");
+			});
+			$("#cust_source option[value='${model.baseDictionarySource.dict_id}']").prop("selected","selected");
+		},"json");
+		$.post("${pageContext.request.contextPath}/baseDictionary_findByTypeCode.action",{"dict_type_code":"006"}, function(data){
+			$(data).each(function(i,n){
+				$("#cust_level").append("<option value='"+n.dict_id+"'>"+n.dict_item_name+"</option>");
+			});
+			$("#cust_level option[value='${model.baseDictionaryLevel.dict_id}']").prop("selected","selected");
+		},"json");
+		$.post("${pageContext.request.contextPath}/baseDictionary_findByTypeCode.action",{"dict_type_code":"001"}, function(data){
+			$(data).each(function(i,n){
+				$("#cust_industry").append("<option value='"+n.dict_id+"'>"+n.dict_item_name+"</option>");
+			});
+			$("#cust_industry option[value='${model.baseDictionaryIndustry.dict_id}']").prop("selected","selected");
+		},"json");
+	});
+</script>
 <SCRIPT language=javascript>
 	function to_page(page){
 		if(page){
@@ -64,8 +86,25 @@
 												<TR>
 													<TD>客户名称：</TD>
 													<TD><INPUT class=textbox id=sChannel2
-														style="WIDTH: 80px" maxLength=50 name="custName"></TD>
-													
+														style="WIDTH: 80px" maxLength=50 name="cust_name" value="<s:property value="model.cust_name"/>"></TD>
+													<TD>客户级别：</TD>
+													<TD>
+														<select id="cust_level" name="baseDictionaryLevel.dict_id">
+															<option value="">-请选择-</option>
+														</select>
+													</TD>
+													<TD>客户来源：</TD>
+													<TD>
+														<select id="cust_source" name="baseDictionarySource.dict_id">
+															<option value="">-请选择-</option>
+														</select>
+													</TD>
+													<TD>所属行业：</TD>
+													<TD>
+														<select id="cust_industry"  name="baseDictionaryIndustry.dict_id">
+															<option value="">-请选择-</option>
+														</select>
+													</TD>
 													<TD><INPUT class=button id=sButton2 type=submit
 														value=" 筛选 " name=sButton2></TD>
 												</TR>
@@ -100,9 +139,9 @@
 													<TD><s:property value="cust_phone"/></TD>
 													<TD><s:property value="cust_mobile"/></TD>
 													<TD>
-													<a href="${pageContext.request.contextPath }/">修改</a>
+													<a href="${pageContext.request.contextPath }/customer_edit.action?cust_id=<s:property value="cust_id"/>">修改</a>
 													&nbsp;&nbsp;
-													<a href="${pageContext.request.contextPath }/">删除</a>
+													<a href="${pageContext.request.contextPath }/customer_delete.action?cust_id=<s:property value="cust_id"/>">删除</a>
 													</TD>
 												</TR>
 												</s:iterator>

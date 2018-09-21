@@ -2,8 +2,6 @@ package com.henry.crm.dao.impl;
 
 import java.util.List;
 
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
-
 import com.henry.crm.dao.UserDao;
 import com.henry.crm.domain.User;
 /**
@@ -11,13 +9,7 @@ import com.henry.crm.domain.User;
  * @author HenryTuan
  *
  */
-public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
-
-	@Override
-	// DAO中保存用户的方法
-	public void save(User user) {
-		this.getHibernateTemplate().save(user);
-	}
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
